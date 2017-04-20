@@ -733,7 +733,7 @@ class VncApiServer(object):
             result = self.generate_hrefs(resource_type, result)
         rsp_body.update(result)
         id_perms = result['id_perms']
-        bottle.response.set_header('ETag', '"' + id_perms['last_modified'] + '"')
+        bottle.response.set_header('ETag', ('"' + id_perms['last_modified'] + '"').encode('utf-8'))
         try:
             self._extension_mgrs['resourceApi'].map_method(
                 'post_%s_read' %(obj_type), id, rsp_body)
